@@ -70,21 +70,33 @@
 	  }
 
 	  bindEvents() {
-	    $('li').on("click", event => {
+	    this.$el.on("click", "li", event => {
 	      const box = event.currentTarget;
 	      const $box = $(box);
-	      this.game.playMove($box.data("pos"));
+
 	      this.makeMove($box);
 	    });
 	    //
 	  }
 
 	  makeMove($square) {
+	    try {
+	      this.game.playMove($square.data("pos"));
+	    } catch (e) {
+	      alert("Invalid move! Try again.");
+	      return;
+	    }
+
 	    let mark = this.game.board.grid[$square.data("pos")[0]]
 	    [$square.data("pos")[1]];
 	    console.log(mark);
 	    $square.text(mark);
-	    $square.css("background-color", "white")
+	    $square.css("background-color", "white");
+	    if (this.game.isOver()) {
+	      let $h1 = $("<h1>").text("You won! Stop playing now!");
+	      this.$el.append($h1);
+	      this.$el.off("click");
+	    }
 	  }
 
 	  setupBoard() {

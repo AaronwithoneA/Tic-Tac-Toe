@@ -4,6 +4,7 @@ html, body, figure, figcaption, ul, li, h1 {
   border: 0;
   font: inherit;
   text-align: inherit;
+  background: #dd4400;
 }
 
 h1 {
